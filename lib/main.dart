@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 //import 'package:flutter/rendering.dart';
-import 'package:phone_logs_and_messages/Screens/my_home_page.dart';
+//import 'package:phone_logs_and_messages/Screens/my_home_page.dart';
+import 'package:phone_logs_and_messages/Screens/permission_Screen.dart';
 //import 'package:riverpod/riverpod.dart';
 
 var kColorScheme =
     ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 209, 119, 198));
 var kDarkColorScheme =
-    ColorScheme.fromSeed(seedColor: Color.fromARGB(0, 0, 0, 0));
+    ColorScheme.fromSeed(seedColor: const Color.fromARGB(0, 0, 0, 0));
 void main() {
   //debugPrintMarkNeedsLayoutStacks = true;
-
   runApp(
     const ProviderScope(
       child: MyApp(),
@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
       ),
-      home: const MyHomePage(),
+      home: const PermissionScreen(),
     );
   }
 }
