@@ -1,4 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:call_log/call_log.dart';
+
+Future<Iterable<CallLogEntry>> getAllCallLogs() {
+  return CallLog.get();
+}
+
+String getTitle(CallLogEntry entry) {
+  // if (entry.name == null) return entry.number!;
+  // if (entry.name!.isEmpty) return entry.number!;
+  if (entry.name?.isEmpty ?? true) return entry.number!;
+  return entry.name!;
+}
+
+String getAvatarTitle(CallLogEntry entry) {
+  String title = getTitle(entry).replaceAll("+", '').replaceAll(" ", '').substring(0,2);
+  return title;
+}
+
+Icon getCallTypeIcon(CallType callType) {
+  Map<String, dynamic> iconData;
+
+  switch (callType) {
+    case CallType.outgoing:
+      iconData = {"color": Colors.green, "icon": Icons.call_made_rounded};
+    case CallType.incoming:
+      iconData = {"color": Colors.green, "icon": Icons.call_received_rounded};
+    case CallType.missed:
+      iconData = {"color": Colors.red, "icon": Icons.call_missed_rounded};
+    case CallType.rejected:
+      iconData = {
+        "color": Colors.grey,
+        "icon": Icons.remove_circle_outline_rounded
+      };
+
+    default:
+      iconData = {"color": Colors.grey, "icon": Icons.report_problem_rounded};
+  }
+
+  return Icon(
+    IconData(iconData["icon"]),
+    color: iconData["color"],
+    size: 14,
+  );
+}
 
 Widget permissionDialogBox(
     {String msg = 'Allow "Call logs" to make and view Calls',
