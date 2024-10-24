@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:call_log/call_log.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:intl/intl.dart';
 
+
+void callNumber(String number) async{
+  await FlutterPhoneDirectCaller.callNumber((number));
+}
 Future<Iterable<CallLogEntry>> getAllCallLogs() {
   return CallLog.get();
 }
@@ -38,12 +44,53 @@ Icon getCallTypeIcon(CallType callType) {
   }
 
   return Icon(
-    IconData(iconData["icon"]),
+    iconData["icon"],
     color: iconData["color"],
     size: 14,
   );
 }
 
+String formatDate(int timeStamp) {
+  var date = DateTime.fromMillisecondsSinceEpoch(timeStamp);
+  //return DateFormat('MMM d H:mm').format(date);
+  return DateFormat.MMMEd().add_jm().format(date);
+}
+
+String  getCallLogType(CallLogEntry currentLogEntry) {
+  String type  = currentLogEntry.callType.toString().split('.')[1];
+  String typeFinal = type[0].toUpperCase() + type.substring(1);
+  return typeFinal;
+}
+
+String getCallDuration(CallLogEntry currentLogEntry) {
+  int duration = currentLogEntry.timestamp!;
+  Duration dur = Duration(seconds: duration);
+
+  String formatedDuration = "";
+
+  if(dur.inHours > 0) {
+    formatedDuration += "${dur.inHours} h";
+  } 
+  if(dur.inMinutes > 0) {
+    int min = dur.inMinutes - (dur.inHours * 60);
+    formatedDuration += "$min m" ;
+  }
+  if(dur.inSeconds > 0) {
+    int sec = dur.inSeconds - (dur.inMinutes * 60);
+    formatedDuration += "$sec s" ;
+  }
+    if(formatedDuration.isEmpty) return "0s";
+    return formatedDuration;
+}
+
+Future<Iterable<CallLogEntry>> getCurrentCallLogs(CallLogEntry callLog) async {
+  var now = DateTime.now();
+  int to = now.millisecondsSinceEpoch;
+
+  Iterable<CallLogEntry> entries = await CallLog.query(dateTo: to, number: callLog.number);
+
+  return entries;
+}
 Widget permissionDialogBox(
     {String msg = 'Allow "Call logs" to make and view Calls',
     required Function allowFunction,
@@ -125,3 +172,4 @@ Widget permissionDialogBox(
     ),
   );
 }
+

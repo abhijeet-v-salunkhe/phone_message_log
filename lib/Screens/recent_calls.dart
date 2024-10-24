@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:call_log/call_log.dart';
+import 'package:phone_logs_and_messages/Screens/call_log_details_screen.dart';
+import 'package:phone_logs_and_messages/Widgets/call_log_item.dart';
 import 'package:phone_logs_and_messages/helper.dart';
 
 class RecentCalls extends StatefulWidget {
@@ -37,6 +39,15 @@ class _RecentCallsState extends State<RecentCalls> with WidgetsBindingObserver {
     }
   }
 
+  void _onClickInfo(BuildContext context, CallLogEntry currentCallLog) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (ctx) => CallLogDetailsScreen(currentCallLog: currentCallLog),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,13 +56,25 @@ class _RecentCallsState extends State<RecentCalls> with WidgetsBindingObserver {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: FutureBuilder(future: allCalllogs, builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            final List<CallLogEntry> entries = snapshot.data!.toList();
+        child: FutureBuilder(
+            future: allCalllogs,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                final List<CallLogEntry> entries = snapshot.data!.toList();
 
-            return ListView.builder(itemBuilder: (context, index) => CallLogItem());
-          }
-        }),
+                return ListView.builder(
+                  itemCount: entries.length,
+                  itemBuilder: (context, index) => CallLogItem(
+                    currentCallLog: entries[index],
+                    onClickInfo: () {
+                      _onClickInfo(context, entries[index]);
+                    },
+                  ),
+                );
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            }),
       ),
     );
   }

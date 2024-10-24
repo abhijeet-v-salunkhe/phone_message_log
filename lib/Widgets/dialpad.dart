@@ -12,7 +12,7 @@ class DialPad extends ConsumerWidget {
     final TextEditingController dialedNumber = ref.watch(dialNumProvider);
     return Container(
       //decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-      color: const Color.fromARGB(31, 65, 64, 64),
+      color: const Color.fromARGB(31, 2, 2, 221),
       margin: const EdgeInsets.all(15.0),
       // height: 700,
       child: Table(
