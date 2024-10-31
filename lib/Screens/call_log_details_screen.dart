@@ -11,7 +11,7 @@ class CallLogDetailsScreen extends ConsumerStatefulWidget {
   const CallLogDetailsScreen({super.key, required this.currentCallLog});
 
   final CallLogEntry currentCallLog;
-  
+
   @override
   ConsumerState<CallLogDetailsScreen> createState() {
     return _CallLogDetailsScreenState();
@@ -37,20 +37,30 @@ class _CallLogDetailsScreenState extends ConsumerState<CallLogDetailsScreen> {
       body: sizeOfScreen.width < 600
           ? Column(
               children: [
-                Column(
-                  children: [
-                    Header(currentCallLog: widget.currentCallLog),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CallSection(currentCallLog: widget.currentCallLog)
-                  ],
+                Header(currentCallLog: widget.currentCallLog),
+                const SizedBox(
+                  height: 20,
+                ),
+                CallSection(currentCallLog: widget.currentCallLog),
+                const SizedBox(
+                  height: 10,
                 ),
                 CallLogList(currentCallLogs: currentCallLogs),
               ],
             )
-          : SizedBox(),
-          
+          : Row(
+              children: [
+                Header(currentCallLog: widget.currentCallLog),
+                const SizedBox(
+                  width: 20,
+                ),
+                CallSection(currentCallLog: widget.currentCallLog),
+                const SizedBox(
+                  width: 10,
+                ),
+                CallLogList(currentCallLogs: currentCallLogs),
+              ],
+            ),
     );
   }
 }

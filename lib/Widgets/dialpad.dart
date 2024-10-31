@@ -49,8 +49,10 @@ class DialPad extends ConsumerWidget {
                 onTap:
                   // Handle call button press
                   () async {
-                await FlutterPhoneDirectCaller.callNumber(dialedNumber.text);
+                    if (dialedNumber.text.isNotEmpty) {
+                        await FlutterPhoneDirectCaller.callNumber(dialedNumber.text);
                   //print("Call button pressed");
+                    }
                 },
                 child: const CircleAvatar(
                   radius: 30,

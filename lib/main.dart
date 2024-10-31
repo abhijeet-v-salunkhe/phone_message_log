@@ -9,6 +9,7 @@ var kColorScheme =
     ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 209, 119, 198));
 var kDarkColorScheme =
     ColorScheme.fromSeed(seedColor: const Color.fromARGB(0, 0, 0, 0));
+    
 void main() {
   //debugPrintMarkNeedsLayoutStacks = true;
   runApp(

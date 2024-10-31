@@ -56,6 +56,10 @@ String formatDate(int timeStamp) {
   return DateFormat.MMMEd().add_jm().format(date);
 }
 
+String formatDateTime(int timeStamp) {
+  var date = DateTime.fromMillisecondsSinceEpoch(timeStamp);
+  return DateFormat.yMd().add_Hm().format(date);
+}
 String  getCallLogType(CallLogEntry currentLogEntry) {
   String type  = currentLogEntry.callType.toString().split('.')[1];
   String typeFinal = type[0].toUpperCase() + type.substring(1);
@@ -63,31 +67,32 @@ String  getCallLogType(CallLogEntry currentLogEntry) {
 }
 
 String getCallDuration(CallLogEntry currentLogEntry) {
-  int duration = currentLogEntry.timestamp!;
+  int duration = currentLogEntry.duration!;
   Duration dur = Duration(seconds: duration);
 
   String formatedDuration = "";
+  //print("Duration ${dur.inDays}");
 
-  if(dur.inHours > 0) {
+  if (dur.inHours > 0) {
     formatedDuration += "${dur.inHours} h";
   } 
-  if(dur.inMinutes > 0) {
+  if (dur.inMinutes > 0) {
     int min = dur.inMinutes - (dur.inHours * 60);
-    formatedDuration += "$min m" ;
+    formatedDuration += " $min m" ;
   }
-  if(dur.inSeconds > 0) {
+  if (dur.inSeconds > 0) {
     int sec = dur.inSeconds - (dur.inMinutes * 60);
-    formatedDuration += "$sec s" ;
+    formatedDuration += " $sec s" ;
   }
     if(formatedDuration.isEmpty) return "0s";
     return formatedDuration;
 }
 
 Future<Iterable<CallLogEntry>> getCurrentCallLogs(CallLogEntry callLog) async {
-  var now = DateTime.now();
-  int to = now.millisecondsSinceEpoch;
+  final now = DateTime.now();
+  final int to = now.millisecondsSinceEpoch;
 
-  Iterable<CallLogEntry> entries = await CallLog.query(dateTo: to, number: callLog.number);
+  final Iterable<CallLogEntry> entries = await CallLog.query(dateTo: to, number: callLog.number);
 
   return entries;
 }

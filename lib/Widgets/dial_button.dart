@@ -4,9 +4,11 @@ import 'package:phone_logs_and_messages/provider/dialed_num_provider.dart';
 //import 'package:google_fonts/google_fonts.dart';
 
 class DialButton extends ConsumerWidget {
-  const DialButton({super.key, required this.text,});
+  const DialButton({super.key, required this.text, /*required this.semanticLabel*/});
 
   final String text;
+  //final String semanticLabel;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //print(text);

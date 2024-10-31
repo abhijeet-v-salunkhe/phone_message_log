@@ -5,8 +5,10 @@ import 'package:phone_logs_and_messages/helper.dart';
 class CallSection extends StatelessWidget {
   const CallSection({super.key, required this.currentCallLog});
   final CallLogEntry currentCallLog;
+
   @override
   Widget build(BuildContext context) {
+    print("Sim Display Name: ${currentCallLog.simDisplayName}");
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 25),
       padding: const EdgeInsets.only(bottom: 8, top: 8),
@@ -42,8 +44,9 @@ class CallSection extends StatelessWidget {
                   const SizedBox(
                     width: 6,
                   ),
-                  Text(
-                    currentCallLog.simDisplayName!.toUpperCase(),
+                
+                  Text(currentCallLog.simDisplayName == null ?    // or currentCallLog.simDisplayName is Null
+                     "" : currentCallLog.simDisplayName!,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
