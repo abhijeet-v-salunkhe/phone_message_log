@@ -7,7 +7,7 @@ import "package:phone_logs_and_messages/Screens/messages.dart";
 import "package:phone_logs_and_messages/Screens/recent_calls.dart";
 import "package:phone_logs_and_messages/provider/device_dimensions_provider.dart";
 //import 'package:url_launcher/url_launcher.dart';
-import 'package:phone_logs_and_messages/provider/device_dimensions_provider.dart';
+//import 'package:phone_logs_and_messages/provider/device_dimensions_provider.dart';
 
 class MyHomePage extends ConsumerStatefulWidget {
   const MyHomePage({super.key});

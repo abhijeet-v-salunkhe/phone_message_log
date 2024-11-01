@@ -59,6 +59,11 @@ class _RecentCallsState extends State<RecentCalls> with WidgetsBindingObserver {
         child: FutureBuilder(
             future: allCalllogs,
             builder: (context, snapshot) {
+              
+              if (!snapshot.hasData || snapshot.hasError) {
+                  return const Center(child: Text("Not call Logs available"),);
+              }
+              
               if (snapshot.connectionState == ConnectionState.done) {
                 final List<CallLogEntry> entries = snapshot.data!.toList();
 

@@ -47,12 +47,13 @@ class DialPad extends ConsumerWidget {
               Container(), // Empty space where there is no button
               InkWell(
                 onTap:
-                  // Handle call button press
-                  () async {
-                    if (dialedNumber.text.isNotEmpty) {
-                        await FlutterPhoneDirectCaller.callNumber(dialedNumber.text);
-                  //print("Call button pressed");
-                    }
+                    // Handle call button press
+                    () async {
+                  if (dialedNumber.text.isNotEmpty) {
+                    await FlutterPhoneDirectCaller.callNumber(
+                        dialedNumber.text);
+                    //print("Call button pressed");
+                  }
                 },
                 child: const CircleAvatar(
                   radius: 30,
@@ -66,7 +67,10 @@ class DialPad extends ConsumerWidget {
                   // Add the functionality to remove the last digit
                   ref.watch(dialNumProvider.notifier).onBackspaceTap();
                 },
-                child: const Icon(Icons.backspace, size: 30),
+                child: const Icon(
+                  Icons.backspace,
+                  size: 30,
+                ),
               ),
             ],
           ),
